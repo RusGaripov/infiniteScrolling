@@ -55,8 +55,8 @@ const CardScreen = () => {
   if (users.length === 0) return <Loader />;
   return (
     <>
-      {users.map((user) => {
-        return <CardTemplate user={user} />;
+      {users.map((user,i) => {
+        return <CardTemplate key={i} user={user} />;
       })}
     </>
   );
