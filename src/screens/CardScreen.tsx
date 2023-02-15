@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import CardTemplate from 'src/components/CardTemplate';
-import Loader from 'src/components/Loader';
+import React, { useEffect, useState } from "react";
+import CardTemplate from "src/components/CardTemplate";
+import Loader from "src/components/Loader";
 
 const CardScreen = () => {
-
-    /**State for users to be received from API response */
+  /**State for users to be received from API response */
   const [users, setUsers] = useState([]);
 
   /**Condition when state should be rerendered */
@@ -13,14 +12,13 @@ const CardScreen = () => {
   useEffect(() => {
     if (fetching || users.length === 0) {
       fetchData();
-      setUsers([]);
     }
   }, [fetching]);
 
   useEffect(() => {
-    document.addEventListener('scroll', scrollHandler);
+    document.addEventListener("scroll", scrollHandler);
     return function () {
-      document.removeEventListener('scroll', scrollHandler);
+      document.removeEventListener("scroll", scrollHandler);
     };
   }, []);
 
@@ -30,20 +28,22 @@ const CardScreen = () => {
    */
   const fetchData = async function () {
     try {
-      const res = await fetch(`https://randomuser.me/api/?results=10&inc=name,picture,email`);
+      const res = await fetch(
+        `https://randomuser.me/api/?results=3&inc=name,picture,email`
+      );
       const data = await res.json();
       const { results } = data;
       setFetching(false);
-      setUsers(results);
+      setUsers([...users, ...results]);
     } catch (err) {
       console.log(err);
     }
   };
 
-   /**This function defines when fetchData function should be called while scrolling
+  /**This function defines when fetchData function should be called while scrolling
    * @params Browser Event
    */
-  const scrollHandler = (e: any) => {
+  const scrollHandler = (e: React.UIEvent<HTMLElement> | any): void => {
     const scrollHeight = e.target.documentElement.scrollHeight;
     const scrollTop = e.target.documentElement.scrollTop;
     const innerHeight = window.innerHeight;

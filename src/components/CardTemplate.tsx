@@ -36,4 +36,4 @@ const CardTemplate = (user: User) => {
   );
 };
 
-export default CardTemplate;
+export default React.memo(CardTemplate);
